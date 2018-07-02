@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.ixortalk.aws.s3.library.config.AwsS3AutoConfiguration
