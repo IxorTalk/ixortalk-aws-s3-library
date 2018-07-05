@@ -23,15 +23,14 @@
  */
 package com.ixortalk.aws.s3.library.config;
 
-import static com.amazonaws.regions.Regions.EU_CENTRAL_1;
-
 import java.util.HashMap;
 import java.util.Map;
 
+import com.amazonaws.regions.Regions;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
-import com.amazonaws.regions.Regions;
+import static com.amazonaws.regions.Regions.EU_CENTRAL_1;
 
 @ConfigurationProperties(prefix = "com.ixortalk")
 public class AwsS3Properties {
@@ -60,25 +59,7 @@ public class AwsS3Properties {
 
     public static class Aws {
 
-        private String accessKeyId;
-        private String accessKeySecret;
         private Regions region = EU_CENTRAL_1;
-
-        public String getAccessKeyId() {
-            return accessKeyId;
-        }
-
-        public void setAccessKeyId(String accessKeyId) {
-            this.accessKeyId = accessKeyId;
-        }
-
-        public String getAccessKeySecret() {
-            return accessKeySecret;
-        }
-
-        public void setAccessKeySecret(String accessKeySecret) {
-            this.accessKeySecret = accessKeySecret;
-        }
 
         public Regions getRegion() {
             return region;
