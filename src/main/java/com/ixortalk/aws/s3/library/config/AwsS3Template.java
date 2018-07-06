@@ -40,7 +40,7 @@ import com.ixortalk.aws.s3.library.config.AwsS3Properties.S3;
 @Component
 public class AwsS3Template {
 
-	private S3 buckets;
+    private S3 buckets;
 
     @Autowired
     private AmazonS3 amazonS3Client;
@@ -49,46 +49,30 @@ public class AwsS3Template {
         this.buckets = buckets;
     }
 
-    public PutObjectResult save(String key, MultipartFile multipartFile) throws IOException {
-    	return saveImpl(buckets.getDefaultBucket(), key, multipartFile);
-    }
-
-    public PutObjectResult save(String bucketName,String key, MultipartFile multipartFile) throws IOException {
-    	return saveImpl(buckets.getBucket(bucketName), key, multipartFile);
-    }
-
     public S3Object get(String key) {
-        return getImpl(buckets.getDefaultBucket(), key);
+        return get(buckets.getDefaultBucket(), key);
     }
-    public S3Object get(String bucketName,String key) {
-        return getImpl(buckets.getBucket(bucketName), key);
+
+    public S3Object get(String bucketName, String key) {
+        return amazonS3Client.getObject(bucketName, key);
     }
 
     public ObjectListing list() {
-        return listImpl(buckets.getDefaultBucket());
+        return list(buckets.getDefaultBucket());
     }
-    
+
     public ObjectListing list(String bucketName) {
-        return listImpl(buckets.getBucket(bucketName));
-    }
-    
-    
-    
-    private ObjectListing listImpl(String bucket) {
-        return amazonS3Client.listObjects(bucket);
-    }
-    private S3Object getImpl(String bucket,String key) {
-        return amazonS3Client.getObject(bucket, key);
-    }
-    private PutObjectResult saveImpl(String bucket, String key, MultipartFile multipartFile) throws IOException {
-        long size = multipartFile.getSize();
-
-        ObjectMetadata meta = new ObjectMetadata();
-        meta.setContentLength(size);
-        meta.setContentType(multipartFile.getContentType());
-        return amazonS3Client.putObject(new PutObjectRequest(bucket, key, multipartFile.getInputStream(),meta));
+        return amazonS3Client.listObjects(bucketName);
     }
 
-    
+    public PutObjectResult save(String key, MultipartFile multipartFile) throws IOException {
+        return save(buckets.getDefaultBucket(), key, multipartFile);
+    }
 
+    public PutObjectResult save(String bucketName, String key, MultipartFile multipartFile) throws IOException {
+        ObjectMetadata objectMetadata = new ObjectMetadata();
+        objectMetadata.setContentLength(multipartFile.getSize());
+        objectMetadata.setContentType(multipartFile.getContentType());
+        return amazonS3Client.putObject(new PutObjectRequest(bucketName, key, multipartFile.getInputStream(), objectMetadata));
+    }
 }

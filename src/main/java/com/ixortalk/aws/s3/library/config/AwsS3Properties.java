@@ -23,9 +23,6 @@
  */
 package com.ixortalk.aws.s3.library.config;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.amazonaws.regions.Regions;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
@@ -73,7 +70,6 @@ public class AwsS3Properties {
     public static class S3 {
 
         private String defaultBucket = "default-bucket";
-        private Map<String, String> buckets = new HashMap<>();
 
         public String getDefaultBucket() {
             return defaultBucket;
@@ -81,18 +77,6 @@ public class AwsS3Properties {
 
         public void setDefaultBucket(String defaultBucket) {
             this.defaultBucket = defaultBucket;
-        }
-        
-        public Map<String, String> getBuckets(){
-        	return this.buckets;
-        }
-        
-        public String getBucket(String bucketName){
-        	return buckets.get(bucketName);
-        }
-
-        public void setBucket(String bucketName, String bucket){
-        	this.buckets.put(bucketName,bucket);
         }
     }
 
