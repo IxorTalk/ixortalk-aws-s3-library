@@ -10,6 +10,35 @@ For building Maven and Java 1.8+ are required.
 $ mvn clean install
 ```
 
+## Using
+
+Module is available in Maven Central.
+
+```
+<dependency>
+    <groupId>com.ixortalk</groupId>
+    <artifactId>ixortalk-aws-s3-library</artifactId>
+    <version>1.0.2</version>
+</dependency>
+```
+
+Sample code:
+
+```
+    @Autowired
+    private AwsS3Template awsS3Template;
+    
+
+    public S3Object getFromS3(String key) {
+        return awsS3Template.get(key);
+    }
+    
+
+    public void saveInS3(String key, MultipartFile multipartFile) throws IOException {
+        awsS3Template.save(key, multipartFile);
+    }
+```
+
 ## Contributing
 
 Pull request are welcome.
