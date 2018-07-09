@@ -24,6 +24,7 @@
 package com.ixortalk.aws.s3.library.config;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -73,6 +74,10 @@ public class AwsS3Template {
         ObjectMetadata objectMetadata = new ObjectMetadata();
         objectMetadata.setContentLength(multipartFile.getSize());
         objectMetadata.setContentType(multipartFile.getContentType());
-        return amazonS3Client.putObject(new PutObjectRequest(bucketName, key, multipartFile.getInputStream(), objectMetadata));
+        return save(bucketName, key, objectMetadata, multipartFile.getInputStream());
+    }
+
+    public PutObjectResult save(String bucketName, String key, ObjectMetadata objectMetadata, InputStream inputStream) {
+        return amazonS3Client.putObject(new PutObjectRequest(bucketName, key, inputStream, objectMetadata));
     }
 }
