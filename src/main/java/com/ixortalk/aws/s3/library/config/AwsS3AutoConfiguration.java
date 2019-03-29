@@ -24,12 +24,7 @@
 package com.ixortalk.aws.s3.library.config;
 
 import com.amazonaws.auth.AWSCredentialsProviderChain;
-import com.amazonaws.auth.AWSStaticCredentialsProvider;
-import com.amazonaws.auth.BasicAWSCredentials;
-import com.amazonaws.auth.EnvironmentVariableCredentialsProvider;
-import com.amazonaws.auth.InstanceProfileCredentialsProvider;
-import com.amazonaws.auth.SystemPropertiesCredentialsProvider;
-import com.amazonaws.auth.profile.ProfileCredentialsProvider;
+import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.amazonaws.services.s3.AmazonS3;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -50,13 +45,7 @@ public class AwsS3AutoConfiguration {
 
     @Bean
     public static AWSCredentialsProviderChain awsCredentialsProvider(Environment environment) {
-        return new AWSCredentialsProviderChain(
-                new EnvironmentVariableCredentialsProvider(),
-                new SystemPropertiesCredentialsProvider(),
-                new ProfileCredentialsProvider(),
-                InstanceProfileCredentialsProvider.getInstance(),
-                new AWSStaticCredentialsProvider(new BasicAWSCredentials(environment.getProperty("cloud.aws.credentials.accessKey",""),
-                        environment.getProperty("cloud.aws.credentials.secretKey",""))));
+        return new DefaultAWSCredentialsProviderChain();
     }
 
     @Bean
