@@ -69,7 +69,10 @@ public class AwsS3Properties {
 
     public static class S3 {
 
+        static final long _15_MINS = 1000L * 60L * 15L;
+
         private String defaultBucket = "default-bucket";
+        private Long defaultPresignedUrlValidityInMillis = _15_MINS;
 
         public String getDefaultBucket() {
             return defaultBucket;
@@ -77,6 +80,14 @@ public class AwsS3Properties {
 
         public void setDefaultBucket(String defaultBucket) {
             this.defaultBucket = defaultBucket;
+        }
+
+        public Long getDefaultPresignedUrlValidityInMillis() {
+            return defaultPresignedUrlValidityInMillis;
+        }
+
+        public void setDefaultPresignedUrlValidityInMillis(Long defaultPresignedUrlValidityInMillis) {
+            this.defaultPresignedUrlValidityInMillis = defaultPresignedUrlValidityInMillis;
         }
     }
 
