@@ -27,7 +27,6 @@ import com.amazonaws.auth.AWSCredentialsProviderChain;
 import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.amazonaws.services.s3.AmazonS3;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -36,7 +35,6 @@ import org.springframework.core.env.Environment;
 import static com.amazonaws.services.s3.AmazonS3ClientBuilder.standard;
 
 @Configuration
-@ConditionalOnProperty("com.ixortalk.s3.default-bucket")
 @EnableConfigurationProperties(AwsS3Properties.class)
 public class AwsS3AutoConfiguration {
 
