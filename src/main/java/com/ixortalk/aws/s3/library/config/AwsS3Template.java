@@ -37,6 +37,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.Date;
 
 import static com.amazonaws.HttpMethod.GET;
@@ -52,6 +53,10 @@ public class AwsS3Template {
 
     public AwsS3Template(S3 s3) {
         this.s3 = s3;
+    }
+
+    public URL getObjectUrl(String bucketName, String key) {
+        return amazonS3Client.getUrl(bucketName, key);
     }
 
     public S3Object get(String key) {
@@ -95,5 +100,9 @@ public class AwsS3Template {
 
     public String generatePresignedURL(String bucketName, String key) {
         return generatePresignedURL(bucketName, key, s3.getDefaultPresignedUrlValidityInMillis());
+    }
+
+    public URL generatePresignedUrl(GeneratePresignedUrlRequest generatePresignedUrlRequest) {
+        return amazonS3Client.generatePresignedUrl(generatePresignedUrlRequest);
     }
 }
